@@ -2,13 +2,17 @@ Objects
 =========
 
 ## Declaring an object
-While both methods ultimately return an object without properties of its own, the Object() constructor function is a bit slower and more verbose. As such, the recommended way to create new objects in JavaScript is to use literal notation.
+While both methods ultimately return an object without properties of its own, the Object() constructor function is a bit slower and more verbose. As such, the recommended way to create new objects in JavaScript is to use literal notation, if possible.
 ```js
   // Using literal notation:
   const myObject = {};
 
   // Using the Object() constructor function:
   const myObject = new Object();
+
+  // Both of these methods use Object.create under the hood.
+  Object.create();
+
 ```
 
 ```javascript
@@ -37,19 +41,69 @@ While both methods ultimately return an object without properties of its own, th
 
 ```
 
+### Object Properties
+[Object API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties)
+```js 
+  // Allows you to define the properties behaviour
+  Object.defineProperty();
+  Object.defineProperties();
+
+  configurable // [bool] - allows you to edit property behaviour
+  enumerable // [bool] - say whether a property can be looped or serialized to JSON
+  writable // [bool] - whether you can change the property
+  value // - actual value of the property object/function array etc
+
+  // See Bellow
+  get // The get syntax binds an object property to a function that will be called when that property is looked up.
+  set // The set syntax binds an object property to a function to be called when there is an attempt to set that property.
+
+```
+
+### Getters and Setters
+```js 
+  'use strict';
+
+  // Create a cat object
+  var cat = {
+    name: {
+      first:'Fluffy', 
+      last: 'LaBeouf'
+    }, 
+    color: 'blue'
+  };
+
+  // use defineProperty to add getters and setters
+  // notice that getters and setters are merely functions in the back
+  Object.defineProperty(cat, 'fullName', {
+    get: function() {
+      return this.name.first + ' ' + this.name.last;  
+    },
+    set: function(value){
+      var nameParts = value.split(' ');
+      this.name.first = nameParts[0];
+      this.name.last = nameParts[1];
+    }
+  });
+  
+  cat.fullName = 'Muffin Top';
+  display(cat.fullName);
+
+```
+
+
+
+
+
+
 ## Dot vs Bracket notation
 Why/When should we use dot / brackets?
 
-### 1
+### Example 1 - using a variable as a key
 By default we should use dot notation, but in some cases we will need to use bracket notation.
 
 ```javascript
 
-	// When the object property is dynamically determined at runtime
-	// This example is from the reduce buildit website
-	obj = {
-		// this is a empty object
-	}
+	obj = {};
 	
 	// The job object is taken from a JSON object from an API
 	if (!obj[job.location.country]) { // Here: if obj does not have 'job.location.country' property
@@ -59,7 +113,7 @@ By default we should use dot notation, but in some cases we will need to use bra
 
 ```
 
-### 2
+### Example 2 - using keys with spaces
 Another time when you might use bracket notation (not advised) is when you want to use spaces in property names
 NOTE: everything in the brackets is converted to a string. 
 Thus anything in the brackets have to be convertible to a string.
@@ -125,7 +179,7 @@ Naturally, one might expect the parrot object and pigeon object to be equal. Aft
 
 What's going on here? As it turns out, the expression will only return true when comparing two references to exactly the same object. Using what we now know about passing objects, let's confirm this. To start off, let's create a new variable, myBird, and assign it to one of the objects above:
 
-## This 
+## This keyword
 > A Method Can Access the Object it was Called On
 
 Recall that an object can contain data and the means to manipulate that data. But just how can an object reference its own properties, much less manipulate some of those properties itself? This is all possible with the this keyword!
@@ -143,30 +197,17 @@ Using this, methods can directly access the object that it is called on. Conside
   triangle.identify(); // 'This is a scalene triangle.'
 ```
 
-Object.keys
------------
+## Object.keys
 NOTE: only return the top level, nested object keys will not be returned.
-```javascript
-	var obj = { 0: 'a', 1: 'b', 2: 'c' };
+```js
+	var obj = { 
+    0: 'a',
+    1: 'b',
+    2: 'c'
+  };
 	console.log(Object.keys(obj)); // console: ['0', '1', '2']
 ```
 
-	JS objects
-	==========
-	The 3 most basic JS operations on an object are GET, SET and DELETE
-
-	NOTE: brackets and dots do the same thing in JS
-
-	Get
-	---
-	object.name
-	object[expression]
-
-
-	Set
-	---
-	object.name = value;
-	object[expression] = value;
 
 ## Object.values
 ```js 
@@ -182,31 +223,3 @@ NOTE: only return the top level, nested object keys will not be returned.
 
 ```
 
-
-
-
-
-
-	Object Literals
-	===============
-	JavaScript has object literals, which is one of the good parts.
-
-	the systems allows you to quickly add object properties, and as many as you like
-
-	var my_object = {foo: bar};
-
-	In ES5 we added meta API, which allows you to do the same thing:
-
-	var my_object = Object.defineProperties( Object.create (Object.prototype), {
-		foo: {
-			value: bar,
-			writable: true,
-			enumerable: true,
-			configurable: true
-		}
-	});
-
-	So this gives you more control on what the thing inherits from, you can also use
-	'null' (Object.null/.prototype) which no inheritence is happening at all (does not inherit from object.prototype).
-
-	We also now have these 3 attributes, which you now have control over

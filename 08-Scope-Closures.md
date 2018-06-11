@@ -5,7 +5,7 @@ Understanding Scope and Closures
 The global scope is the highest scope in a program. Aka the root scope. 
 
 ## Lexical scope
-In JS scopes are create with `functions` not `{}`.
+In JS scopes are create with `functions` not `{}`. (Exceptions: `let`, `const`)
 ```js
 	// NOTE: braces do not create scope in JS consider the following:
 	var x = 15;
@@ -93,16 +93,60 @@ New to ES6 there are new variable types: `const`, `let` and our usual `var`.
 	// because this function forms a closure over x, x is guaranteed to be available
 	// even if x goes in or out of scope
 	var x = 50;
+
 	function someFunction(){
 		var y = 100;
 		return x + y;
 	}
 
 	x = 25;
-	var someFn = someFunction();
+	var someFn = someFunction(); // x = 25
 
 	console.log(someFn);
 ```
+
+## Problems with closure
+Whenever you adding event listeners in a loop
+```js
+
+  var nums = [1,2,3];
+
+  // Let's loop over the numbers in our array
+  for (var i = 0; i < nums.length; i++) {
+
+      // This is the number we're on...
+      var num = nums[i];
+
+      // We're creating a DOM element for the number
+      var elem = document.createElement('div');
+      elem.textContent = num;
+
+      // ... and when we click, alert the value of `num`
+      elem.addEventListener('click', function() {
+          console.log(num);
+      });
+
+      // finally, let's add this element to the document
+      document.body.appendChild(elem);
+  };
+
+  // when we click on each element we get 3 returned...why?
+  // num is globally declared and thus changes with each iteration.
+  // each eventListener scope includes access to the same var
+
+
+  // solution
+  // Here we are creating an IIFE function which creates it's own instance 
+  // of num (pass by value), the IIFE returns the function to be invoked
+  elem.addEventListener('click', (function(numCopy) {
+    return function() {
+      alert(numCopy)
+    };
+  })(num));
+
+```
+
+
 
 ## Closure - As a function factory - you can make different instances/ environments
 AKA higher order function:

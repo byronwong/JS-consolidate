@@ -1,7 +1,7 @@
 Control statements
 ==================
 
-## IF Statments
+## IF Statements
 Check the condition whether TRUE/FALSE
 ```js
 	if (condition){
@@ -23,7 +23,7 @@ Check the condition whether TRUE/FALSE
 > Everything else is truthy
 
 
-### Conditional or ternairy operator
+### Conditional or ternary operator
 >	condition ? ifTrue : ifFalse
 
 If condition is true, the operator returns the value of expr1;

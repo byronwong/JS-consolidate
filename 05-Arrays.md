@@ -1,15 +1,11 @@
-Arrays
-------
+# Arrays
 
+## Resource 
+Please refer to the mdn array api to see all features
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
 
-`.length` is the number of items in the array starting at 0
-`.push()` - adds a member to the array
-`.pop()` - returns the value of the last item in the array
 
-Creating an Array
------------------
-
+## Creating an Array
 You can create an empty array and then assign values
 ```javascript
   var myArray = [];
@@ -23,18 +19,18 @@ You can create an array with values
   var thirdPrime = primes[2];
 ``` 
 
-In built properties
--------------------
-Understand arrays are objects therefore the same rules apply.
+## In built properties
+Understand arrays are objects therefore the same rules apply, so they can also hold properties.
+These properties are not part of the array index.
 ```js
   
-  var myArray = ['foo', 'bar'];
+  var myArray = [1,2,3,4];
 
   // Normally we use bracket notation
-  myArray[0]; // returns 'foo'
+  myArray[0]; // returns '1'
 
   // we can't use dot notation to get values but you can for properties
-  myArray.0; // returns 'foo'
+  myArray.0; // returns '1'
   
 ```
 
@@ -66,7 +62,7 @@ Understand arrays are objects therefore the same rules apply.
 ### Getting length
 `array.length` returns the number of items in the array not the last position number therefore:
 ```javascript 
-var arrayPositionNumber = myArray.length - 1;
+  var arrayPositionNumber = myArray.length - 1;
 ```
 
 In built methods 

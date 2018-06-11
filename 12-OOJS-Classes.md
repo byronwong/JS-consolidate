@@ -1,5 +1,12 @@
 # Classes
 
+## Resources 
+- [Pluralsight course material](http://next.plnkr.co/edit/J81EK3TWFof0ekhEnyiJ?p=preview)
+- [Object visualizer](http://www.objectplayground.com/)
+
+## Other notes
+- Always use strict mode
+
 ## ES5 "Class" Recap
 Since ES6 classes are just a mirage and hide the fact that prototypal inheritance is actually going on under the hood, let's quickly look at how to create a "class" with ES5 code:
 
@@ -49,7 +56,7 @@ class Plane {
 }
 ```
 
-## ⚠️ Where Are All The Commas?
+## ⚠ Where Are All The Commas?
 Did you notice that there aren't any commas between the method definitions in the Class? Commas are not used to separate properties or methods in a Class. If you add them, you'll get a SyntaxError of unexpected token.
 
 ## Static methods
@@ -142,9 +149,9 @@ Both Tree and Maple are JavaScript classes. The Maple class is a "subclass" of T
 Let's see this same functionality, but written in ES5 code:
 ```js
 function Tree(size, leaves) {
-  this.size = (typeof size === "undefined")? 10 : size;
+  this.size = (typeOf size === "undefined")? 10 : size;
   const defaultLeaves = {spring: 'green', summer: 'green', fall: 'orange', winter: null};
-  this.leaves = (typeof leaves === "undefined")?  defaultLeaves : leaves;
+  this.leaves = (typeOf leaves === "undefined")?  defaultLeaves : leaves;
   this.leafColor;
 }
 
@@ -157,7 +164,7 @@ Tree.prototype.changeSeason = function(season) {
 
 function Maple (syrupQty, size, leaves) {
   Tree.call(this, size, leaves);
-  this.syrupQty = (typeof syrupQty === "undefined")? 15 : syrupQty;
+  this.syrupQty = (typeOf syrupQty === "undefined")? 15 : syrupQty;
 }
 
 Maple.prototype = Object.create(Tree.prototype);

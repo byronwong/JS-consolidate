@@ -10,7 +10,7 @@ JS Basics
     - [0.2.1. User Messages](#021-user-messages)
 - [0.3. Variables](#03-variables)
     - [0.3.1. Pass by reference vs pass by value](#031-pass-by-reference-vs-pass-by-value)
-- [0.4. Primative & Data types](#04-primative--data-types)
+- [0.4. Primitive & Data types](#04-primitive--data-types)
 - [0.5. Strings](#05-strings)
     - [0.5.1. Methods](#051-methods)
 - [0.6. let](#06-let)
@@ -64,10 +64,11 @@ If you intend to create a global variable name it in CAPS.
 ```
 
 ### 0.3.1. Pass by reference vs pass by value
+Primitive values are passed by value where as objects (also arrays, functions) are passed by reference.
 
 
-## 0.4. Primative & Data types
-There are 7 datatypes, of which 6 are primitives.
+## 0.4. Primitive & Data types
+There are 7 data types, of which 6 are primitives.
 A primitive (primitive value, primitive data type) is data that is not an object and has no methods. In JavaScript, there are 6 primitive data types:
 
 >	string,
@@ -111,10 +112,10 @@ The only other datatype in JS is:
 
   // Slice()
   // -------
-  var myfox = newString.slice(indexOfBrown, indexOfJumps); // returns: 'brown fox'
+  var myFox = newString.slice(indexOfBrown, indexOfJumps); // returns: 'brown fox'
 
   // you can also use splice to copy an index.
-  var myfox = newString.slice();
+  var myFox = newString.slice();
 
 ```
 

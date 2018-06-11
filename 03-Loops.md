@@ -42,7 +42,7 @@ Do one iteration then test for condition.
   }
 ```
 
-## For of loop
+## For of loop (ES6)
 ```js
   // ES6 - iterate through each item in the array
   let cards = [];

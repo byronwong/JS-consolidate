@@ -51,15 +51,15 @@ With function expressions:
 ```js 
   function foo() {
 
-      var bar = function() {
-          return 3;
-      };
+    var bar = function() {
+        return 3;
+    };
 
-      return bar();
+    return bar();
 
-      var bar = function() {
-          return 8;
-      };
+    var bar = function() {
+        return 8;
+    };
   }
   console.log(foo()); // returns 3!!!
 
@@ -124,9 +124,11 @@ Parameters are place holders for arguments.
 ```
 
 ### Pseudo parameters
-Each functions receives two pseudo parameters
+Each functions receives two pseudo parameters:
 - arguments
 - this
+
+See more on `this`
 
 
 ### Pass by value vs Pass by reference
@@ -314,28 +316,12 @@ A function that takes other functions as arguments (and/or returns a function, a
 
 Where have you probably seen callback functions used? In array methods! Functions are commonly passed into array methods and called on elements within an array (i.e., the array on which the method was called).
 
-Let's check out a couple in detail:
-
-- forEach()
-- map()
-- filter()
-
-Kinda what we have been doing so far.
-```js 
-// TBC
-```
-
-
-
-
-
-
-
-
 
 ## The "This" Keyword
 > How the function is invoked determines the value of this inside the function:
 ️️️
+
+### 1. If invoked in the global scope 
 
 ```js
   
@@ -345,33 +331,42 @@ Kinda what we have been doing so far.
     console.log(this);
   }
 
-  // 2. invoked as a method
+```
+
+### 2. invoked as a method
+```js
   var myObj2 = {
     foo: function() {
-      console.log(this);
+      console.log(this); // returns myObj2 
     }
   };
 
-  // ️️️️️️️⚠️ using myFunc defined above
+  // ️️️️️️️⚠ using myFunc defined above
   var myObj = {
     foo: myFunc() // returns the object myObj
   };
 
-
-  // 3. Within a constructor using 'new'
-  // This is the object created by the constructor
-
-  // 4. Call, Apply and Bind form -- allows you to supply you own this.
-  // See above...
-
 ```
 
-> NOTE: an inner function does not get access to the this object, instead it gets its own `this`, to solve this you can bind this in a variable and then pass it e.g.
+### 3. Within a constructor using 'new'
+```js
+  // This is the object created by the constructor
+  var Bear = function() {
+    this.getThis = function(){
+      console.log(this);
+    }
+  };
 
-### Call, Apply and Bind
+  var panda = new Bear();
+  panda.getThis(); // returns panda
+```
+
+
+### 4. Call, Apply and Bind form -- allows you to supply you own this.
 All three allow you to define the `this` keyword.
 However Call and Apply cause the function to be invoked, whereas bind returns a new function with our desired `this` object. 
-Call and Apply 
+
+#### Call and Apply 
 ```js
   // Call() basic
   // allows you define the "this" argument
@@ -380,7 +375,7 @@ Call and Apply
     console.log(this.normal);
   };
 
-  var sayObject = {normal:"Moes", high: "Moesss"};
+  var sayObject = {normal:"baz", high: "maz"};
   speak.call(sayObject);
   // NOTE: "this" now takes "sayObject"
 
@@ -391,7 +386,7 @@ Call and Apply
     console.log(what);
   };
 
-  var sayObject = {normal:"Moes", high: "Moesss"};
+  var sayObject = {normal:"baz", high: "maz"};
   speak.call(sayObject, sayObject.normal); // added argument
 ```
 ```js
@@ -401,10 +396,10 @@ Call and Apply
     console.log(what);
   };
 
-  var sayObject = {normal:"Moes", high: "Moesss"};
+  var sayObject = {normal:"baz", high: "maz"};
   speak.apply (sayObject, ["value1"]); // added array
 ```
-
+#### Bind
 Similar to call() and apply(), the bind() method allows us to directly define a value for this. bind() is a method that is also called on a function, but unlike call() or apply(), which both invoke the function right away -- bind() returns a new function that, when called, has this set to the value we give it.
 ```js
   // Bind()
@@ -426,6 +421,34 @@ Similar to call() and apply(), the bind() method allows us to directly define a 
   // expected output: 42
 ```
 
+### Regarding inner functions 
+
+> NOTE: an inner function does not get access to the this object, instead it gets its own `this`, to solve this you can bind this in a variable and then pass it e.g.
+
+```js 
+  var foo = {
+    name: 'bar'
+  };
+
+  var myFunc1 = function(){
+    console.log('myFunc1', this.name); // returns bar
+
+    // var that = this;
+    
+    var myFunc2 = function(){
+      console.log('myFunc2', this.name); // returns global / undefined
+    }
+    // .bind(that); // myFunc2 now returns bar
+    
+    myFunc2();
+    
+  }.bind(foo); // binding to set initial this for demo
+
+  myFunc1();
+
+```
+
+
 ### Callbacks and this
 Invoking a method in a callback function
 ```js
@@ -442,7 +465,9 @@ Invoking a method in a callback function
     }
   };
 
-  invokeTwice(dog.growOneYear);
+  invokeTwice(dog.growOneYear); 
+  // note: just passing the reference to the function.
+  // i.e. if we returned dog.growOneYear we would get function(){...} with no context
 
   dog.age; // 5 - What! not 7?
 ```
@@ -482,6 +507,21 @@ Using this approach, invoking invokeTwice() still sets the value of this to wind
 
 Since this is such a common pattern, JavaScript provides an alternate and less verbose approach: the bind() method.
 
+In some cases it might not be possible to use the .bind() method.
+
+```js
+
+  ProductItem.prototype.registerHoverStatic = function() {
+    var thisProductItem = this; // This = ProductItem
+    this.$listItems.each(function(){
+      // This = node element
+      thisProductItem.hoverRows($(this), thisProductItem); // [nodeEle, ProductItem]
+    });
+  };
+
+```
+
+
 
 ## Higher Order functions
 These are functions that take a function as a argument and/or return a modified function or object with functions.
@@ -517,7 +557,7 @@ function IceCream() {
 // adds scoop to ice cream
 IceCream.prototype.addScoop = function() {
 
-  // NOTE: event loop, setTimout is taken out of context
+  // NOTE: event loop, setTimeout is taken out of context
   setTimeout(function() {
     this.scoops++;
     console.log(this);
@@ -528,7 +568,7 @@ IceCream.prototype.addScoop = function() {
 const dessert = new IceCream();
 dessert.addScoop();
 ```
-The function passed to setTimeout() is called without new, without call(), without apply(), and without a context object. That means the value of this inside the function is the global object and NOT the dessert object. So what actually happened was that a new scoops variable was created (with a default value of undefined) and was then incremented (undefined + 1 results in NaN):
+The function passed to setTimeout() is called without new, without call(), without apply(), and without a context object. This means the value of this inside the function is the global object and NOT the dessert object. So what actually happened was that a new scoops variable was created (with a default value of undefined) and was then incremented (undefined + 1 results in NaN):
 
 One way around this is to use closure:
 ```js
@@ -541,7 +581,7 @@ function IceCream() {
 IceCream.prototype.addScoop = function() {
   const cone = this; // sets `this` to the `cone` variable
   setTimeout(function() {
-    cone.scoops++; // references the `cone` variable
+    cone.scoops++; // references the `cone` variable available
     console.log('scoop added!');
   }, 0.5);
 };
@@ -563,7 +603,7 @@ function IceCream() {
 // adds scoop to ice cream
 IceCream.prototype.addScoop = function() {
   setTimeout(() => { // an arrow function is passed to setTimeout
-    this.scoops++;
+    this.scoops++; // this is inherited from outside scope this = dessert obj
     console.log('scoop added!');
   }, 0.5);
 };
@@ -596,9 +636,3 @@ dessert.addScoop();
 ```
 
 Yeah, this doesn't work for the same reason - arrow functions inherit their this value from their surrounding context. Outside of the addScoop() method, the value of this is the global object. So if addScoop() is an arrow function, the value of this inside addScoop() is the global object. Which then makes the value of this in the function passed to setTimeout() also set to the global object!
-
-
-
-
-## Recursion
-

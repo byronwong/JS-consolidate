@@ -3,7 +3,7 @@
 
 ## Icons
 http://www.charbase.com/
-⚠️ - Important
+⚠ - Important
 ⚠
 
 ️️️
@@ -13,8 +13,8 @@ http://www.phpied.com/extreme-javascript-optimization/
 http://conceptf1.blogspot.co.uk/2014/01/javascript-best-practices-loop-optimization.html
 
 
-JS Specfications
-================
+JS Specifications
+=================
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators
 
 

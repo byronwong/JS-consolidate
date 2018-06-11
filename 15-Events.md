@@ -33,9 +33,9 @@ When the example code is clicked:
 
 If we did this:
 ```javascript
-    button.onclick = null;
+    button.onClick = null;
 ```
-we would be essentailly wiping out our event handler.
+we would be essencially wiping out our event handler.
 
 
 
