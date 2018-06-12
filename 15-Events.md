@@ -15,7 +15,7 @@ The Event Object
 TBC
 
 
-Old school - Handeling Events
+Old school - Handling Events
 -----------------------------
 When the example code is clicked:
 ```javascript
@@ -35,7 +35,7 @@ If we did this:
 ```javascript
     button.onClick = null;
 ```
-we would be essencially wiping out our event handler.
+we would be essentially wiping out our event handler.
 
 
 

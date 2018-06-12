@@ -199,6 +199,13 @@ We can create a superclass to hold all the shared methods, and let the two subcl
   amy.grab();
 
 ```
+# Prototype
+
+- A Function's prototype
+  - A function's prototype is the object instance that will become the prototype for all for all objects created using this constructor.
+
+- A Object's prototype 
+  - An objects prototype is the object instance from which the object is inherited.
 
 
 ## Finding Properties and Methods on the Prototype Chain
