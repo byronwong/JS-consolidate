@@ -1,0 +1,16 @@
+{
+  "name": "01-JS-consolidate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "18-Recursion.js",
+  "dependencies": {
+    "eslint": "^5.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

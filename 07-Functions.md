@@ -454,6 +454,7 @@ Invoking a method in a callback function
 ```js
 
   function invokeTwice(cb) {
+    console.log('cb', cb); // here cb is just the Fn without 'this' context
     cb();
     cb();
   }
@@ -462,6 +463,7 @@ Invoking a method in a callback function
     age: 5,
     growOneYear: function () {
       this.age += 1;
+      // console.log('this', this); // returns window
     }
   };
 
@@ -509,6 +511,8 @@ Since this is such a common pattern, JavaScript provides an alternate and less v
 
 In some cases it might not be possible to use the .bind() method.
 
+Note: this also happens with arrow functions.
+
 ```js
 
   ProductItem.prototype.registerHoverStatic = function() {
@@ -521,12 +525,8 @@ In some cases it might not be possible to use the .bind() method.
 
 ```
 
-
-
 ## Higher Order functions
 These are functions that take a function as a argument and/or return a modified function or object with functions.
-
-
 
 
 ## Arrow functions
@@ -560,7 +560,7 @@ IceCream.prototype.addScoop = function() {
   // NOTE: event loop, setTimeout is taken out of context
   setTimeout(function() {
     this.scoops++;
-    console.log(this);
+    console.log(this); // returns window
     console.log('scoop added!');
   }, 500);
 };
@@ -582,6 +582,7 @@ IceCream.prototype.addScoop = function() {
   const cone = this; // sets `this` to the `cone` variable
   setTimeout(function() {
     cone.scoops++; // references the `cone` variable available
+    console.log(cone); // returns dessert object
     console.log('scoop added!');
   }, 0.5);
 };
@@ -636,3 +637,22 @@ dessert.addScoop();
 ```
 
 Yeah, this doesn't work for the same reason - arrow functions inherit their this value from their surrounding context. Outside of the addScoop() method, the value of this is the global object. So if addScoop() is an arrow function, the value of this inside addScoop() is the global object. Which then makes the value of this in the function passed to setTimeout() also set to the global object!
+
+### log and return trick 
+```js
+// arrow function that also returns result
+// Note: anything after the => is returned
+(result => console.log(result) || result);
+
+// also 
+
+(param1) => ({
+  // auto return using block syntax
+  // return param1++;
+  param1 ++;
+})
+
+```
+
+## Async await
+[DOCS](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
