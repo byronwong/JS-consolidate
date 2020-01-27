@@ -295,6 +295,9 @@ greet('Richard', 'Howdy'); // Howdy Richard!
 ```js
   // Immediately Invoked Function Expression (IIFE)
   // code executes after declaration 
+
+  // NOTE: use let and const for block scope now, no more scope leak!!!
+
   (function() {
     ...
   })();
