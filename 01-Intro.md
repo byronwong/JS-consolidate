@@ -125,6 +125,7 @@ The only other datatype in JS is:
 ```
 
 ## 0.6. Let
+- `Let` is block scoped
 ```js
   // let variables are not affected by hoisting, thus the following will result in a ref error.
   console.log(productId);
@@ -175,6 +176,7 @@ window.currentlyEating === currentlyEating // false!
 
 ```js
   // short for constant
+  // scoped to block
   // once declared they cannot be reassigned a value.
   // you also can't have an un defined const variable, will result in error
 
