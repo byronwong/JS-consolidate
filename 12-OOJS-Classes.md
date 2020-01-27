@@ -182,3 +182,32 @@ super replaces Object.create() allowing you to call the super class constructor.
     }
   }
 ```
+
+## Getters and Setters
+This is a ES5 feature:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
+
+```js
+  // syntax pattern
+  {get prop() { ... } }
+  {get [expression]() { ... } }
+
+  // Example
+  var privatePrice = 0;
+
+  var myObj = {
+    privatePrice,
+    get price(){
+      return this.privatePrice;
+    },
+    set price(newPrice) {
+      this.privatePrice = newPrice;
+    }
+  };
+
+  console.log(myObj);
+
+  myObj.price = 45;
+  console.log(myObj.price);
+```

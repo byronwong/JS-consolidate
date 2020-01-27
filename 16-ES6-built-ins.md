@@ -16,7 +16,6 @@ The iterator protocol is used to define a standard way that an object produces a
 
 ## Maps
 
-## Promises
 
 ## Proxies
 

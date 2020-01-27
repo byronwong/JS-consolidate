@@ -65,8 +65,7 @@ These properties are not part of the array index.
   var arrayPositionNumber = myArray.length - 1;
 ```
 
-In built methods 
-----------------
+## In built methods 
 
 ### .push() - Adding to an array (at the end)
 `myArray.push("newEntry");`
@@ -89,8 +88,7 @@ numbers.splice(1, 1); // ["1", "3", "4"]
 
 ```
 
-Iterating over arrays
----------------------
+## Iterating over arrays
 
 For loops are too imperative, and there is a push to being declartive (functional programming)
 https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0
@@ -110,16 +108,6 @@ Code structure:
   var new_array = arr.map(function callback(currentValue, index, array) {
       // Return element for new_array
   }[, thisArg])
-```
-
-Examples: Basic Usage
-```javascript 
-  var numbers = [1, 5, 10, 15];
-  var doubles = numbers.map(function(x) {
-    return x * 2;
-  });
-  // doubles is now [2, 10, 20, 30]
-  // numbers is still [1, 5, 10, 15]
 ```
 
 Example: Using maps to process arrays
@@ -160,10 +148,41 @@ Example: Data binding to templates
 
 ```
 
-Prototype.reduce();
--------------------
+## Prototype.reduce();
 
-Example: basic use:
+### Frequency counter or tally 
+[mdn example](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce#Counting_instances_of_values_in_an_object)
+
+```js
+  var names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice'];
+
+  var countedNames = names.reduce(function (allNames, name) { 
+    if (name in allNames) {
+      allNames[name]++;
+    }
+    else {
+      allNames[name] = 1;
+    }
+    return allNames;
+  }, {});
+  // countedNames is:
+  // { 'Alice': 2, 'Bob': 1, 'Tiff': 1, 'Bruce': 1 }
+```
+
+### Removing duplicates
+```js
+  // see mdn first for better alternatives
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce#Remove_duplicate_items_in_array
+  // an array of continents
+  let continents = birthData.reduce((accumulator, currentVal) => {
+    if(accumulator.indexOf(currentVal.continent) === -1){
+      accumulator.push(currentVal.continent);
+    }
+    return accumulator;
+  }, []);
+```
+
+### Example: basic use:
 ```javascript 
 
   // Code Pattern
@@ -191,7 +210,7 @@ Example: basic use:
   console.log(total);
 
 ``` 
-Example: Flattening an array
+### Example: Flattening an array
 ```javascript 
   var jobs = {
     uk:['array of job objects'],
@@ -204,9 +223,6 @@ Example: Flattening an array
   }, []);
 ```
 
-Array.foreach()
----------------
-
 ## For...in
 For...in loops through all properties of an object / array, this includes properties that are not part of the index. 
 
@@ -217,4 +233,25 @@ For...in loops through all properties of an object / array, this includes proper
   for(var index in myArray) {
     console.log(myArray[index]);
   } // 1, 2, hello
+```
+
+## for ...of loops
+- This is a new loop that work similar to for loops.
+- This loop accepts iterables.
+
+```js
+  // basic use
+  var myArray = [1,2,3,4,5];
+  for ( var item of myArray){
+    console.log(item); // 1 2 3 4 5
+  }
+```
+```js
+  // looping strings
+  var text = 'ABCD';
+  var count = 0;
+  for (items of text){
+    count++;
+  }
+  console.log(count); // 4
 ```

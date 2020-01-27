@@ -223,3 +223,63 @@ NOTE: only return the top level, nested object keys will not be returned.
 
 ```
 
+## Object literals Extension
+
+```js
+  // price and tax are mapped to the context
+  // so the properties pick up the values.
+  // so we no longer need to do `price : price`.
+  var price = 15, tax = 10;
+  
+  var myObj = {
+    price,
+    tax
+  };
+```
+
+```js
+  // We can also add a function using the new syntax.
+  // previously we would have to do myFunc : function(){...},
+  var myObj = {
+    myFn() {
+      console.log('hello world');
+    }
+  };
+```
+
+```js    
+  // Understanding 'this'
+  // what does 'this' refer to? the context or the property
+  // by using this syntax this refers to the context.
+  // Note: this is the Fn's context which is the object
+  let price = 15, tax = 10;
+
+  let myObj = {
+    price: 7.88,
+    myFunc() {
+      return this.price
+    }
+  };
+
+  console.log(myObj.myFunc()); // returns 7.88
+```
+
+```js
+  // Using bracket notation
+  // here we are creating a property called 'moes' with a value of tax
+  var text = "panda moes", tax = 10;
+
+  var myObj = {
+    [text]: tax,
+    // we can even use concat
+    [text + "-001"]() {
+      console.log('it works');
+    }
+  };
+  console.log(myObj);
+
+  // NOTE: HERE we are using bracket notation to call the fn name with a space
+  console.log(myObj["panda moes"]); // 10
+  myObj["panda moes-001"](); // it works
+
+```
