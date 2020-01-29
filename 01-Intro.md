@@ -30,6 +30,12 @@ A single statement may span multiple lines. Multiple statements may occur
 on a single line if each statement is separated by a semicolon.
 This isn't a keyword, but a group of keywords.
 
+```js
+if() {
+  // some code...
+}
+
+```
 
 ### User Messages
 ```js
@@ -40,14 +46,14 @@ This isn't a keyword, but a group of keywords.
 
 
 ## Variables
-Always use 'var', if you don't you will create a global variable.
+Use 'var', if you don't you will create a global variable.
 If you intend to create a global variable name it in CAPS.
 ```
 	e.g. GLOBAL
 ```
 
 ### Pass by reference vs pass by value
-Primitive values are passed by value where as objects (also arrays, functions) are passed by reference.
+Primitive values are passed by value where as objects (also arrays, functions and objects) are passed by reference.
 
 
 ## Primitive & Data types
@@ -116,6 +122,7 @@ The only other datatype in JS is:
   function updateProductId(){
     productId = 12;
   }
+  
   let productId = null;
   updateProductId();
   console.log(productId); // returns 12

@@ -106,7 +106,7 @@ New to ES6 there are new variable types: `const`, `let` and our usual `var`.
 ```
 
 ## Problems with closure
-Whenever you adding event listeners in a loop
+Whenever you add event listeners in a loop
 ```js
 
   var nums = [1,2,3];
@@ -117,7 +117,7 @@ Whenever you adding event listeners in a loop
       // This is the number we're on...
       var num = nums[i];
 
-      // We're creating a DOM element for the number
+      // We're creating a DOM element for the each number
       var elem = document.createElement('div');
       elem.textContent = num;
 
@@ -138,6 +138,9 @@ Whenever you adding event listeners in a loop
   // solution
   // Here we are creating an IIFE function which creates it's own instance 
   // of num (pass by value), the IIFE returns the function to be invoked
+  
+  // UPDATE ES6 we can use let here and as it is block scope num will not jump out 
+  // of the braces
   elem.addEventListener('click', (function(numCopy) {
     return function() {
       alert(numCopy)
