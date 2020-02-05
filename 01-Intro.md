@@ -426,3 +426,15 @@ Really to take apart something. In most cases it will be arrays or objects.
 
   console.log(high); // returns "88000"
 ```
+
+```js
+  // swapping variables
+  let one = 1;
+  let two = 2;
+
+  console.log(`${one}, ${two}`); // returns 1,2
+
+  [one, two] = [two, one];
+
+  console.log(`${one}, ${two}`); // returns 2,1
+```

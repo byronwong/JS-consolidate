@@ -647,7 +647,7 @@ const dessert = new IceCream();
 dessert.addScoop();
 ```
 
-Yeah, this doesn't work for the same reason - arrow functions inherit their this value from their surrounding context. Outside of the addScoop() method, the value of this is the global object. So if addScoop() is an arrow function, the value of this inside addScoop() is the global object. Which then makes the value of this in the function passed to setTimeout() also set to the global object!
+Yeah, this doesn't work for the same reason - arrow functions inherit their this value from their parent scoop. Outside of the addScoop() method, the value of this is the global object. So if addScoop() is an arrow function, the value of this inside addScoop() is the global object. Which then makes the value of this in the function passed to setTimeout() also set to the global object!
 
 ### log and return trick 
 ```js
