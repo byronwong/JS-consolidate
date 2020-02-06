@@ -428,6 +428,8 @@ Similar to call() and apply(), the bind() method allows us to directly define a 
 
 > NOTE: an inner function does not get access to the this object, instead it gets its own `this`, to solve this you can bind this in a variable and then pass it e.g.
 
+> Even better use an arrow function as it will inherit this from the parent environment
+
 ```js 
   var foo = {
     name: 'bar'
