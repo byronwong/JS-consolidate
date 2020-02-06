@@ -31,6 +31,7 @@ You can create a function in 2 ways:
 
 The main difference is in how these are hoisted.
 The declaration is hoisted in it entirety, whereas with the expression only the var portion is hoisted. 
+
 ```js 
   function foo(){
 
@@ -427,6 +428,7 @@ Similar to call() and apply(), the bind() method allows us to directly define a 
 ### Regarding inner functions 
 
 > NOTE: an inner function does not get access to the this object, instead it gets its own `this`, to solve this you can bind this in a variable and then pass it e.g.
+> BETTER use an internal arrow function as this is inherited fron the parent scope.
 
 > Even better use an arrow function as it will inherit this from the parent environment
 
@@ -439,13 +441,19 @@ Similar to call() and apply(), the bind() method allows us to directly define a 
     console.log('myFunc1', this.name); // returns bar
 
     // var that = this;
-    
     var myFunc2 = function(){
       console.log('myFunc2', this.name); // returns global / undefined
     }
     // .bind(that); // myFunc2 now returns bar
     
     myFunc2();
+
+    // A better solution is using an arrow function as arrow functions get their this from parent scope
+    var myFunc3 = ()=> {
+      console.log('myFunc3', this.name); // returns "bar"
+    };
+    
+    myFunc3(); // returns "bar"
     
   }.bind(foo); // binding to set initial this for demo
 
@@ -641,7 +649,7 @@ const dessert = new IceCream();
 dessert.addScoop();
 ```
 
-Yeah, this doesn't work for the same reason - arrow functions inherit their this value from their surrounding context. Outside of the addScoop() method, the value of this is the global object. So if addScoop() is an arrow function, the value of this inside addScoop() is the global object. Which then makes the value of this in the function passed to setTimeout() also set to the global object!
+Yeah, this doesn't work for the same reason - arrow functions inherit their this value from their parent scoop. Outside of the addScoop() method, the value of this is the global object. So if addScoop() is an arrow function, the value of this inside addScoop() is the global object. Which then makes the value of this in the function passed to setTimeout() also set to the global object!
 
 ### log and return trick 
 ```js

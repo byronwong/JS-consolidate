@@ -1,29 +1,7 @@
 JS Basics
 =========
 
-<!-- TOC -->
-
-- [0.1. Expression](#01-expression)
-    - [0.1.1. example 1](#011-example-1)
-    - [0.1.2. example 2](#012-example-2)
-- [0.2. Statement](#02-statement)
-    - [0.2.1. User Messages](#021-user-messages)
-- [0.3. Variables](#03-variables)
-    - [0.3.1. Pass by reference vs pass by value](#031-pass-by-reference-vs-pass-by-value)
-- [0.4. Primitive & Data types](#04-primitive--data-types)
-- [0.5. Strings](#05-strings)
-    - [0.5.1. Methods](#051-methods)
-- [0.6. Let](#06-let)
-- [0.7. const](#07-const)
-- [0.8. Block scoping](#08-block-scoping)
-- [0.9. Rest and Spread](#09-rest-and-spread)
-- [0.10. Default Parameters](#010-default-parameters)
-- [0.11. Template literals](#011-template-literals)
-- [0.12. Destructuring](#012-destructuring)
-
-<!-- /TOC -->
-
-## 0.1. Expression
+## Expression
 An expression is any valid unit of code that resolves to a value.
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators
@@ -31,19 +9,19 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Op
 Conceptually, there are two types of expressions: those that assign a
 value to a variable and those that simply have a value.
 
-### 0.1.1. example 1
+### example 1
 ```js
 	var x = 4;
 ```
 
-### 0.1.2. example 2
+### example 2
 ```js
   // This is the second type to expressions JS will still do the math even though it is not saved
 	3 + 4
 ```
 
 
-## 0.2. Statement
+## Statement
 
 Is a single unit of work.
 
@@ -52,8 +30,14 @@ A single statement may span multiple lines. Multiple statements may occur
 on a single line if each statement is separated by a semicolon.
 This isn't a keyword, but a group of keywords.
 
+```js
+if() {
+  // some code...
+}
 
-### 0.2.1. User Messages
+```
+
+### User Messages
 ```js
 	alert();
 	prompt();
@@ -61,18 +45,18 @@ This isn't a keyword, but a group of keywords.
 ```
 
 
-## 0.3. Variables
-Always use 'var', if you don't you will create a global variable.
+## Variables
+Use 'var', if you don't you will create a global variable.
 If you intend to create a global variable name it in CAPS.
 ```
 	e.g. GLOBAL
 ```
 
-### 0.3.1. Pass by reference vs pass by value
-Primitive values are passed by value where as objects (also arrays, functions) are passed by reference.
+### Pass by reference vs pass by value
+Primitive values are passed by value where as objects (also arrays, functions and objects) are passed by reference.
 
 
-## 0.4. Primitive & Data types
+## Primitive & Data types
 There are 7 data types, of which 6 are primitives.
 A primitive (primitive value, primitive data type) is data that is not an object and has no methods. In JavaScript, there are 6 primitive data types:
 
@@ -90,14 +74,14 @@ The only other datatype in JS is:
 
 > Object
 
-## 0.5. Strings
+## Strings
 > can use "" or ''
 > can escape \"\"
 
 > \n - new line
 > NOTE: escapes is ignored by html
 
-### 0.5.1. Methods
+### Methods
 ```js
   var string1 = "The quick brown fox jumps over the 'lazy' dog";
   var string2 = "Happily ever after";
@@ -124,7 +108,7 @@ The only other datatype in JS is:
 
 ```
 
-## 0.6. Let
+## Let
 - `Let` is block scoped
 ```js
   // let variables are not affected by hoisting, thus the following will result in a ref error.
@@ -138,6 +122,7 @@ The only other datatype in JS is:
   function updateProductId(){
     productId = 12;
   }
+  
   let productId = null;
   updateProductId();
   console.log(productId); // returns 12
@@ -172,7 +157,7 @@ let currentlyEating = 'ice cream';
 window.currentlyEating === currentlyEating // false!
 ```
 
-## 0.7. const
+## const
 
 ```js
   // short for constant
@@ -203,7 +188,7 @@ window.currentlyEating === currentlyEating // false!
 ```
 
 
-## 0.8. Block scoping
+## Block scoping
 >Resource: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/block
 
 Only works with `let` and `const`.
@@ -223,72 +208,8 @@ Only works with `let` and `const`.
   // expected output: 1
 ```
 
-## 0.9. Rest and Spread
-- Rest refers to gathering up parameters and putting them into an array
 
-```js
-  // Rest
-  // ====
-  var myFunc = function(productId, ...otherData) {
-    console.log(productId); // '9023493'
-    console.log(otherData); // ['other1', 'other2', 'other3']
-  };
-
-  myFunc('9023493', 'other1', 'other2', 'other3');
-  // NOTE: if otherData is empty we will get an empty array
-```
-
-```js
-  // returning the number of params
-  // myFunc.length vs arguments.length
-  var myFunc = function(productId, ...otherData) {
-    console.log(productId); // '9023493'
-    console.log(otherData); // ['other1', 'other2', 'other3']
-
-    console.log(arguments.length); // includes all the parameter including the rest ones.
-  };
-
-  myFunc('9023493', 'other1', 'other2', 'other3');
-
-  console.log(myFunc.length); // returns on the productId param, and ignores the rest param
-
-```
-
-```js 
-  // using rest with dynamic functions
-  var myFunc = new Function('...categories', 'return categories');
-  console.log(myFunc(1,2,3,4,5)); // returns [1,2,3,4,5]
-```
-
-- Spread refers to taking an array/iterable and spreading them out into separate items.
-
-```js
-  // Spread
-  // ======
-  var prices = [20, 30, 50];
-  var maxPrice = Math.max(...prices);
-  console.log(maxPrice); // returns 50
-```
-```js 
-  // creating a new array
-  // note the spread is in square brackets
-  var prices = [20, 30, 50];
-  var newPrices = [...prices];
-  console.log(newPrices); // returns [20, 30, 50]
-```
-```js
-  // Creating a new array shorthand
-  var newPrices = [...[,]];
-  console.log(newPrices); // returns [undefined, undefined]
-```
-```js
-  // using spread on strings
-  var mayArray = ['a', ...'bcd', 'e', 'f'];
-  console.log(mayArray); // returns ['a', 'b', 'c', 'd', 'e', 'f']
-```
-
-
-## 0.10. Default Parameters
+## Default Parameters
 ```js
   // Basic use
   var getProduct = function(productId=1000, type="software"){
@@ -327,7 +248,7 @@ Only works with `let` and `const`.
   console.log(fn());
 ```
 
-## 0.11. Template literals
+## Template literals
 ```js
   // Basic use
   var text="moes";
@@ -398,7 +319,7 @@ Only works with `let` and `const`.
 
 
 
-## 0.12. Destructuring
+## Destructuring
 Really to take apart something. In most cases it will be arrays or objects.
 ```js 
   let salary = ['20000', '75000'];
@@ -440,4 +361,16 @@ Really to take apart something. In most cases it will be arrays or objects.
   [low, average, high=88000] = salary;
 
   console.log(high); // returns "88000"
+```
+
+```js
+  // swapping variables
+  let one = 1;
+  let two = 2;
+
+  console.log(`${one}, ${two}`); // returns 1,2
+
+  [one, two] = [two, one];
+
+  console.log(`${one}, ${two}`); // returns 2,1
 ```
