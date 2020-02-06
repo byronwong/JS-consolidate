@@ -148,6 +148,15 @@ Example: Data binding to templates
 
 ```
 
+## Creating an array from a nodelist
+```js
+  // you can use Array.from()
+  const para = Array.from(document.querySelectorAll('p'));
+  // returns an array of paragraphs 
+
+
+```
+
 ## Prototype.reduce();
 
 ### Frequency counter or tally 
