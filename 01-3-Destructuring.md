@@ -28,7 +28,7 @@ console.log(c); // return rest of array
 
 ## Destructuring a property from an object in an array of objects
 
-Here the first item is an object destructure
+Here the first item is an object destructure followed by rest
 
 ```js
 const [
