@@ -22,7 +22,7 @@ const [a, ...c] = [
   5,
 ];
 
-console.log(a); // returns object
+console.log(a); // returns the object
 console.log(c); // return rest of array
 ```
 
@@ -31,25 +31,33 @@ console.log(c); // return rest of array
 Here the first item is an object destructure followed by rest
 
 ```js
-const [
-  {
-    fullName: { firstName: a },
-  },
-  ...c
-] = [
-  {
-    id: 42,
-    displayName: "jdoe",
-    fullName: {
-      firstName: "John",
-      lastName: "Doe",
-    },
-  },
-  2,
-  3,
-  4,
-  5,
+const props = [
+  { id: 1, name: "Fizz" },
+  { id: 2, name: "Buzz" },
+  { id: 3, name: "FizzBuzz" },
 ];
-console.log(a); // returns 'John'
-console.log(c); // return rest of array
+
+const [, , { name: a }] = props; // note here we are skipping the first 2 entries of the array
+
+console.log(a); // "FizzBuzz"
+```
+
+## Destructuring a nested property from an object
+
+```js
+const user = {
+  id: 42,
+  displayName: "jdoe",
+  fullName: {
+    firstName: "John",
+    lastName: "Doe",
+  },
+};
+
+const {
+  id,
+  fullName: { firstName: a },
+} = user;
+
+console.log(a); // "John"
 ```
